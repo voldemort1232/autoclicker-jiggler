@@ -1,0 +1,33 @@
+// Functie om de muis te bewegen
+function mouseJiggler() {
+    let currentX = 0;
+    let currentY = 0;
+    const distance = 5; // Afstand om de muis te verplaatsen
+
+    // Verplaats de muis periodiek
+    setInterval(() => {
+        currentX += distance;
+        currentY += distance;
+
+        // Gebruik de MouseEvent constructor om een muisbeweging te simuleren
+        const eventMove = new MouseEvent('mousemove', {
+            clientX: currentX,
+            clientY: currentY,
+            bubbles: true,
+            cancelable: true,
+            view: window
+        });
+
+        // Dispatch het evenement op het document
+        document.dispatchEvent(eventMove);
+
+        // Keer de richting om als we de rand bereiken
+        if (currentX > window.innerWidth || currentY > window.innerHeight) {
+            currentX = 0;
+            currentY = 0;
+        }
+    }, 1000); // Beweeg elke seconde
+}
+
+// Start de mouse jiggler
+mouseJiggler();
